@@ -1,0 +1,44 @@
+#root{
+    flex-direction: column;
+}
+.prioridade{
+    width: 80%;
+    height: 150px;
+    border-radius: 10px 0 0 10px;
+}
+.tarefa>div{
+    height: 170px;
+}
+
+/* Prior Suav */
+.tarefa.green>div{    
+    border-top: 1px solid var(--bs-success);
+    border-bottom: 1px solid var(--bs-success);
+}
+.tarefa.green>div:last-child{
+    border-right: 1px solid var(--bs-success);
+    border-left: 2px dashed var(--bs-success);
+    border-radius: 0 10px 10px 0;
+}
+
+/* Prior alerta */
+.tarefa.orange>div{    
+    border-top: 1px solid var(--bs-warning);
+    border-bottom: 1px solid var(--bs-warning);
+}
+.tarefa.orange>div:last-child{
+    border-right: 1px solid var(--bs-warning);
+    border-left: 2px dashed var(--bs-warning);
+    border-radius: 0 10px 10px 0;
+}
+
+/* Prior urgencia */
+.tarefa.red>div{    
+    border-top: 1px solid var(--bs-danger);
+    border-bottom: 1px solid var(--bs-danger);
+}
+.tarefa.red>div:last-child{
+    border-right: 1px solid var(--bs-danger);
+    border-left: 2px dashed var(--bs-danger);
+    border-radius: 0 10px 10px 0;
+}
