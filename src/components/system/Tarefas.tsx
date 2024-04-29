@@ -1,4 +1,4 @@
-import '../tarefas.css';
+import '../../tarefas.css';
 
 const Tarefas = () => (
     <section className='tarefas'>
