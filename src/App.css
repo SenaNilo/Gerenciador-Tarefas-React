@@ -30,7 +30,7 @@ form{
   margin: 0 auto;
   /* max-width: 500px; */
 }
-form #senha::placeholder, form #email::placeholder{
+form #senha::placeholder, form #email::placeholder, form #senhaInput::placeholder, form #emailInput::placeholder{
   color: #c8c8c8;
 }
 section.tarefas{

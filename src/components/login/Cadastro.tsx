@@ -70,7 +70,7 @@ const Cadastro = () => {
       <p className="text-body-primary mt-3">
         <a href="/" className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Já possui uma conta? Entre aqui!</a>
       </p>
-      <button onClick={ logOut }>logout</button>
+      <button className="btn btn-outline-light" onClick={ logOut }>Logout</button>
     </>
   )
 }
