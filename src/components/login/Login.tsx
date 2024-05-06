@@ -1,4 +1,10 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
+import { useAuth } from '../../contexts/auth/authentication.jsx';
+
 const Login = () => {
+  const { userLoggedIn } = useAuth();
+
   return (
     <>
       <form action="">
@@ -28,3 +34,7 @@ const Login = () => {
 }
 
 export default Login
+function useAuth(): { userLoggedIn: any; } {
+  throw new Error('Function not implemented.');
+}
+

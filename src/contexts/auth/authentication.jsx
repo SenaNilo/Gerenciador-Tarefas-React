@@ -1,5 +1,4 @@
 //React context serve para poder passar dados sem precisar usar o props
-
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../../config/firebase";
