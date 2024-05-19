@@ -1,11 +1,11 @@
-//React context serve para poder passar dados sem precisar usar o props
-import { onAuthStateChanged } from "firebase/auth";
-import React, { useContext, useEffect, useState } from "react";
-import { auth } from "../../config/firebase";
+import React, { useEffect, useState } from 'react';
+import { auth } from '../config/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useContext } from 'react';
 
 const AuthContext = React.createContext();
 
-export function useAuth() {
+export function useAuthContext(){
     return useContext(AuthContext);
 }
 
@@ -13,11 +13,11 @@ export function AuthProvider({ children }){
     const [currentUser, setCurrentUser] = useState(null);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
-
-    //useEffect - traz mais funcionalidades, normalmente de fora
-    useEffect(() => {
+    
+    useEffect(()=>{
         const unsubscribe = onAuthStateChanged(auth, initializeUser);
-    }, []);
+        return unsubscribe
+    }, [])
 
     async function initializeUser(user){
         if(user) {
@@ -27,7 +27,7 @@ export function AuthProvider({ children }){
             setCurrentUser(null);
             setUserLoggedIn(false);
         }
-        setLoading(false);
+        setLoading(false)
     }
 
     const value = {
@@ -36,8 +36,8 @@ export function AuthProvider({ children }){
         loading
     }
 
-    return (
-        <AuthContext.Provider value ={ value }>
+    return(
+        <AuthContext.Provider value={value}>
             {!loading && children}
         </AuthContext.Provider>
     )
