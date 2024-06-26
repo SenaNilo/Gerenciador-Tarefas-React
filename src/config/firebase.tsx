@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCZkNDOXz7rOWTfFC7cXlrjSJVHnYNchto",
+  apiKey: "AIzaSyCZkNDOXz7rOWTfFC7cXlrjSJVHnYNchto",/* Projeto criado para estudo */
   authDomain: "task-manager-84536.firebaseapp.com",
   projectId: "task-manager-84536",
   storageBucket: "task-manager-84536.appspot.com",

@@ -26,11 +26,11 @@ h1 {
   margin-bottom: 15px!important;
   line-height: 1.1;
 }
-form{
+.form{
   margin: 0 auto;
   /* max-width: 500px; */
 }
-form #senha::placeholder, form #email::placeholder, form #senhaInput::placeholder, form #emailInput::placeholder{
+.form #senha::placeholder, .form #email::placeholder, .form #senhaInput::placeholder, .form #emailInput::placeholder{
   color: #c8c8c8;
 }
 section.tarefas{

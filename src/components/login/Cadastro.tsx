@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { auth } from "../../config/firebase";
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { 
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+
+// const [user, setUser] = useState({});
+
+// function settingUser(){
+//   if(!auth.currentUser)
+//     setUser({email: "Null"})
+//   else
+//     setUser(auth.currentUser)
+// }
 
 const Cadastro = () => {
   //useState retorna um arr de dois valores, um para o valor atual e o outro para mudá-lo, useState(aqui vai o valor padrao)
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
-
-  console.log(auth?.currentUser?.email);
 
   const registerInFirebase = async () => { // Pra quando o botao for disparado
     //Ele vai esperar uma autorização do firebase com o email e a senha para o banco
@@ -22,6 +32,8 @@ const Cadastro = () => {
     }
   };
 
+  console.log(auth?.currentUser?.email);
+
   const logOut = async () => {
     try{
       signOut(auth);
@@ -33,7 +45,7 @@ const Cadastro = () => {
 
   return (
     <>
-      <form>
+      <div className="form">
         <h1>Cadastre-se</h1>
         
         <div className="input-group mb-3">
@@ -65,8 +77,7 @@ const Cadastro = () => {
             Cadastrar
           </button>
         </div>
-      </form>
-      
+      </div>
       <p className="text-body-primary mt-3">
         <a href="/" className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Já possui uma conta? Entre aqui!</a>
       </p>

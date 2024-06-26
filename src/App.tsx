@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/tarefas',
-    element: <Tarefas />,
+    element: <Tarefas authorized={ false } />,
   }
 ])
 
