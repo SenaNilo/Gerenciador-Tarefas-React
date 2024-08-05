@@ -1,10 +1,22 @@
+import { signOut } from 'firebase/auth';
+import { auth } from '../../config/firebase';
 import '../../tarefas.css';
-import { redi } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Tarefas = () => {
-    let toLogin = useHref("/login");
-    if(!authorized){ 
-        return <redirect to="/login" />
+    // let toLogin = useHref("/login");
+    // if(!authorized){ 
+    //     return <redirect to="/login" />
+    // }
+    let navigate = useNavigate();
+
+    const logOut = async () => {
+        try{
+            signOut(auth);
+            navigate('/')
+        }catch (err){
+            console.error(err);
+        }
     }
 
     return(
@@ -12,7 +24,8 @@ const Tarefas = () => {
             <header className='container p-4 mt-4'>
                 <div className='row'>
                     <h1 className='col text-start'>Gerenciador de Tarefas</h1>
-                    <button type="button" className="fs-5 col-3 btn btn-success">Adicionar Tarefa</button>
+                    <button type="button" className="fs-5 m-1 col-3 btn btn-success">Adicionar Tarefa</button>
+                    <button className="btn btn-outline-light m-1 fs-6 col-1" onClick={ logOut }>Logout</button>
                 </div>
             </header>
 

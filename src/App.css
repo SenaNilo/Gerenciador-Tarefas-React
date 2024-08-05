@@ -37,3 +37,19 @@ section.tarefas{
   height: auto;
   padding: 6rem 0 2rem 0;
 }
+
+/*    opacity: 1;
+    display: block;
+    color: black;*/
+
+.active{
+  opacity: 1!important;
+  display: block!important;
+  background: #0000006b;
+  color: black;
+}
+.desactive{
+  opacity: 0!important;
+  display: none!important;
+  color: black;
+}
