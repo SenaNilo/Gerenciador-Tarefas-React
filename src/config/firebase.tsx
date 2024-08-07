@@ -1,6 +1,7 @@
 //Arquivo dado pelo firebase para implementar em noso app
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';   //Para adicionar o authentication from Firebase
+import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCZkNDOXz7rOWTfFC7cXlrjSJVHnYNchto",/* Projeto criado para estudo */
@@ -13,5 +14,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app); //tudo o que formos adicionar, irá para o app
-
+export const auth = getAuth(app); //Para o login e o cadastro funcionar;
+export const db = getDatabase(app); //Para o crud interno de cada usuario

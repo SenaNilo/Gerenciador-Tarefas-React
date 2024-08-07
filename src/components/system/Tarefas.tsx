@@ -1,14 +1,14 @@
 import { signOut } from 'firebase/auth';
-import { auth } from '../../config/firebase';
+import { set, ref, onValue } from 'firebase/database';
+import { uid } from 'uid';
+import { auth, db } from '../../config/firebase';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import '../../tarefas.css';
-import { useNavigate } from 'react-router-dom'
 
 const Tarefas = () => {
-    // let toLogin = useHref("/login");
-    // if(!authorized){ 
-    //     return <redirect to="/login" />
-    // }
     let navigate = useNavigate();
+    const uuid = auth?.currentUser?.uid;
 
     const logOut = async () => {
         try{
@@ -19,12 +19,50 @@ const Tarefas = () => {
         }
     }
 
+    let title = "sexomto";
+    let desc = "Descrição Fajuta";
+    let dtCreated = "07/08/2024";
+    let dtConclusion = "09/08/2026";
+    let importance = "2";
+
+    //create on database
+    const createItemDatabase = () => {
+        const id = uid();
+        set(ref(db, `/${id}`), {
+            title,
+            desc,
+            dtCreated,
+            dtConclusion,
+            importance,
+            id,
+            uuid
+        });
+    }
+    
+    //read
+    const [toDos, setToDos] = useState([]);
+    useEffect(() => {
+        onValue(ref(db), (snapshot) => {
+            const data = snapshot.val();
+            // console.log(Object.values(data)); TA DANDO CERTO POHA
+            if(data){
+                const todosArray: never[] = Object.values(data);
+                setToDos(todosArray);
+            }
+        });
+    }, []);
+
+
+    console.log(
+        toDos.map(user => user.id)
+    );
+
     return(
         <section className='tarefas'>
             <header className='container p-4 mt-4'>
                 <div className='row'>
                     <h1 className='col text-start'>Gerenciador de Tarefas</h1>
-                    <button type="button" className="fs-5 m-1 col-3 btn btn-success">Adicionar Tarefa</button>
+                    <button type="button" onClick={ createItemDatabase } className="fs-5 m-1 col-3 btn btn-success">Adicionar Tarefa</button>
                     <button className="btn btn-outline-light m-1 fs-6 col-1" onClick={ logOut }>Logout</button>
                 </div>
             </header>
@@ -35,6 +73,14 @@ const Tarefas = () => {
             </div>
 
             <div className='container p-3'> {/* Tarefas - vai conter todas aqui */}
+
+                { toDos.map((todo) => ( //todo vai ser cada objeto dentro da array de tarefas do usuario, onde eu terei que pegar somente as deste usuario depois
+                    <>
+                        <h1>{todo.title}</h1>
+                    </>
+                ))}
+
+
                 <div className="tarefa row p-4 green">
                     <div className='col-1 prioridade bg-success'>
                         {/* coisinho para marcar a prioridade */}
