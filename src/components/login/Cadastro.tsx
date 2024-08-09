@@ -110,10 +110,10 @@ const Cadastro = () => {
             Cadastrar
           </button>
         </div>
+        <p className="text-body-primary mt-3">
+          <a href="/" className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Já possui uma conta? Entre aqui!</a>
+        </p>
       </div>
-      <p className="text-body-primary mt-3">
-        <a href="/" className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Já possui uma conta? Entre aqui!</a>
-      </p>
     </>
   )
 }

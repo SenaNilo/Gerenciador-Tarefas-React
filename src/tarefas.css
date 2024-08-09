@@ -42,3 +42,12 @@
     border-left: 2px dashed var(--bs-danger);
     border-radius: 0 10px 10px 0;
 }
+div.green>div.col-1{
+    background-color: var(--bs-success);
+}
+div.orange>div.col-1{
+    background-color: var(--bs-warning);
+}
+div.red>div.col-1{
+    background-color: var(--bs-danger);
+}

@@ -19,11 +19,11 @@ const Tarefas = () => {
         }
     }
 
-    let title = "sexomto";
+    let title = "Nilo";
     let desc = "Descrição Fajuta";
     let dtCreated = "07/08/2024";
     let dtConclusion = "09/08/2026";
-    let importance = "2";
+    let importance = "red";
 
     //create on database
     const createItemDatabase = () => {
@@ -44,18 +44,24 @@ const Tarefas = () => {
     useEffect(() => {
         onValue(ref(db), (snapshot) => {
             const data = snapshot.val();
-            // console.log(Object.values(data)); TA DANDO CERTO POHA
+            //console.log(snapshot.val()); //TA DANDO CERTO POHA
             if(data){
                 const todosArray: never[] = Object.values(data);
-                setToDos(todosArray);
+                const arrayOfUser: never[] = [];
+                todosArray.map((obj) => { //Mapeamento para pegar somente as tarefas DAQUELE usuario, o logado
+                    if(obj.uuid == uuid)
+                        arrayOfUser.push(obj);
+                });
+                // console.log(arrayOfUser);
+                setToDos(arrayOfUser);
             }
         });
     }, []);
 
 
-    console.log(
-        toDos.map(user => user.id)
-    );
+    // console.log(
+    //     toDos.map(user => user.id)
+    // );
 
     return(
         <section className='tarefas'>
@@ -74,10 +80,22 @@ const Tarefas = () => {
 
             <div className='container p-3'> {/* Tarefas - vai conter todas aqui */}
 
-                { toDos.map((todo) => ( //todo vai ser cada objeto dentro da array de tarefas do usuario, onde eu terei que pegar somente as deste usuario depois
-                    <>
-                        <h1>{todo.title}</h1>
-                    </>
+                {//todo vai ser cada objeto dentro da array de tarefas do usuario, onde eu terei que pegar somente as deste usuario depois
+                toDos.map((todo) => ( 
+                    <div className={`tarefa row p-4 ${todo.importance}`}>
+                     {/* <div className={`tarefa row p-4 green`}> */}
+                        <div className="col-1 prioridade"></div>
+                        <div className='col-7 text-start'>
+                            <h2 className="m-3">{ todo.title }</h2>
+                            <p className="m-3">{ todo.desc }</p>
+                        </div>
+                        <div className="col-4 text-end p-3">
+                            <p>Criação: { todo.dtCreated }</p>
+                            <p>Conclusão: { todo.dtConclusion }</p>
+                            <button type='button' className="btn btn-outline-light m-1">Ver Mais</button>
+                            <button type='button' className="btn btn-outline-info m-1">Concluir Tarefa</button>
+                        </div>
+                    </div>
                 ))}
 
 
@@ -99,7 +117,7 @@ const Tarefas = () => {
                 </div>
 
                 <div className="tarefa row p-4 orange">
-                    <div className='col-1 prioridade bg-warning'>
+                    <div className='col-1 prioridade'>
                         {/* coisinho para marcar a prioridade */}
                     </div>
                     <div className="col-7 text-start">
@@ -115,7 +133,7 @@ const Tarefas = () => {
                 </div>
 
                 <div className="tarefa row p-4 red">
-                    <div className='col-1 prioridade bg-danger'>
+                    <div className='col-1 prioridade'>
                         {/* coisinho para marcar a prioridade */}
                     </div>
                     <div className="col-7 text-start">

@@ -2,7 +2,6 @@
 
 #root {
   width: 100vw;
-  height: 100vh;
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
@@ -28,14 +27,22 @@ h1 {
 }
 .form{
   margin: 0 auto;
-  /* max-width: 500px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* Centraliza horizontalmente */
+  justify-content: center;  /* Centraliza verticalmente */
+  margin: 0 auto;
+  height: 100vh;
+}
+.form .d-grid{
+  width: 100%;
 }
 .form #senha::placeholder, .form #email::placeholder, .form #senhaInput::placeholder, .form #emailInput::placeholder{
   color: #c8c8c8;
 }
 section.tarefas{
   height: auto;
-  padding: 6rem 0 2rem 0;
+  padding: 1rem 0 2rem 0;
 }
 
 /*    opacity: 1;
