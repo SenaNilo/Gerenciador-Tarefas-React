@@ -9,6 +9,8 @@ import '../../tarefas.css';
 const Tarefas = () => {
     let navigate = useNavigate();
     const uuid = auth?.currentUser?.uid;
+    const [modalAdd, setModalAdd] = useState(true);
+
     let title = "Nilo";
     let desc = "Descrição Fajuta";
     let dtCreated = "07/08/2024";
@@ -70,23 +72,45 @@ const Tarefas = () => {
 
     return(
         <>
-            {/* Modal de error */}
-            {/* <div className={`${modalConfirm ? 'active' : 'desactive'} modal fade`} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog mt-5">
+            {/* Modal para adicionar tarefas */}
+            <div className={`${modalAdd ? 'active' : 'desactive'} modal fade`} id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-4" id="staticBackdropLabel">Deseja concluir Essa tarefa?</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={ () => setModalConfirm(false) }></button>
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Adicionar Tarefas</h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setModalAdd(false)}></button>
                     </div>
                     <div className="modal-body">
-                        Essa ação irá deletar sua tarefa
+                        <div className="mb-3">
+                            <label htmlFor="tituloTarefa" className="col-form-label">Título:</label>
+                            <input type="text" className="form-control" id="tituloTarefa" />
+                        </div>
+                        <div className="mb-3">
+                            <label  htmlFor="descricao" className="col-form-label">Descrição: </label>
+                            <textarea className="form-control" id="descticao"></textarea>
+                        </div>
+                        <div className="mb-3">
+                            <div className="input-group mb-3">
+                                <label className="input-group-text" htmlFor="prioridade">Prioridade</label>
+                                <select className="form-select" id="prioridade">
+                                    <option selected>Choose...</option>
+                                    <option value="greeb">Baixa</option>
+                                    <option value="orange">Média</option>
+                                    <option value="red">Urgente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="mb-3">
+                            <input type="date" name="dataConclusao" id="dataConclusao" />
+                        </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary">Ok</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary">Send message</button>
                     </div>
                     </div>
                 </div>
-            </div> */}
+                </div>
 
             <section className='tarefas'>
                 <header className='container p-4 mt-4'>
