@@ -1,5 +1,6 @@
 #root{
     flex-direction: column;
+    min-height: 100vh;
 }
 .prioridade{
     width: 80%;
@@ -50,4 +51,33 @@ div.orange>div.col-1{
 }
 div.red>div.col-1{
     background-color: var(--bs-danger);
+}
+
+.active{
+    .modal-dialog{
+        transform: translate(0, -5px) !important;
+        font-weight: 600;
+
+        .modal-body{
+            .mb-3:nth-child(4){
+                display: flex;
+                
+                label{
+                    width: 60%;
+                }
+                input{
+                    width: 40%;
+                    max-width: 40%;
+                }
+            }
+        }
+
+        .form-date{
+            padding: 0.5rem;
+            border-radius: 0 10px 10px 0;
+            box-shadow: none;
+            border: none;
+        }
+    }
+
 }
