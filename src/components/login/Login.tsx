@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom"
 
 import { useState } from 'react';
 // import { AuthContext } from '../../contexts/authCont.jsx';
-
 const Login = () => {  
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [modalError, setModalError] = useState(false);
   
   let navigate = useNavigate();
-
   if(auth?.currentUser?.email){
-    console.log("logado");
-    navigate('/tarefas');
-  }
+      console.log("logado");
+      navigate('/tarefas');
+    }
+
+  
   // console.log(auth?.currentUser?.email);
 
   async function signInWithFirebase() {
