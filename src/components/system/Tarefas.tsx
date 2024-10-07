@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import { set, ref, onValue, remove } from 'firebase/database';
+import { set, ref, onValue, remove, update } from 'firebase/database';
 import { uid } from 'uid';
 import { auth, db } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
@@ -98,28 +98,46 @@ const Tarefas = () => {
     //delete
     const handleDelete = (todo: Todo) => {
         remove(ref(db, `/${todo.id}`));
+        alert("Deletado com Sucesso!");
     }
 
     //Update
     var [dataAtt, setDataAtt] = useState<Todo | null>(null); //Aqui, o estado aux pode ser do tipo Todo ou null
-    var [attImportance, setAttImportance] = useState("");
-    var [attDate, setAttDate] = useState("");
     const handleUpdate = (todo: Todo) => {
         setDataAtt(todo);
-        setAttImportance(todo?.importance);
+        setImportance(todo?.importance);
+        setTitle(todo?.title);
+        setDesc(todo?.desc);
 
         const fDate = todo.fDtConclusion;
 
-        console.log(todo.fDtConclusion);
         if(typeof fDate === "string"){
             const [day, month, year] = fDate.split("/");
             const isoDate = `20${year}-${month}-${day}`;
-            console.log(isoDate);
                         
-            setAttDate(isoDate);
+            setDtConclusion(isoDate);
         }
 
         setModalUpdate(true);
+    } 
+    //Funcao para enviar ao firebase
+    const handleSubmitUpdate = ( tempId: string | undefined ) => {
+        if(tempId){
+            const [year, month, day] = dtConclusion.split("-");
+            const fDtConclusion = `${day}/${month}/${year.slice(-2)}`;
+    
+            update(ref(db, `/${tempId}`), {
+                desc,
+                fDtConclusion,
+                importance,
+                title,
+                id: tempId,
+            });
+            console.log(tempId);
+        }
+        alert("Modificado com secesso");
+
+        setModalUpdate(false);
     }
 
     return(
@@ -176,16 +194,16 @@ const Tarefas = () => {
                     <div className="modal-body">
                         <div className="mb-3">
                             <label htmlFor="tituloTarefa" className="col-form-label">Título:</label>
-                            <input type="text" className="form-control" id="tituloTarefa" onChange={(e) => setTitle(e.target.value)} value={ dataAtt?.title }/>
+                            <input type="text" className="form-control" id="tituloTarefa" onChange={(e) => setTitle(e.target.value)} value={ title }/>
                         </div>
                         <div className="mb-3">
                             <label  htmlFor="descricao" className="col-form-label">Descrição: </label>
-                            <textarea className="form-control" id="descricao" onChange={(e) => setDesc(e.target.value)} value={ dataAtt?.desc }></textarea>
+                            <textarea className="form-control" id="descricao" onChange={(e) => setDesc(e.target.value)} value={ desc }></textarea>
                         </div>
                         <div className="mb-3">
                             <div className="input-group mb-3">
                                 <label className="input-group-text" htmlFor="prioridade">Prioridade</label>
-                                <select className="form-select" id="prioridade" onChange={(e) => setAttImportance(e.target.value)} value={ attImportance }>
+                                <select className="form-select" id="prioridade" onChange={(e) => setImportance(e.target.value)} value={ importance }>
 
                                     <option disabled>Escolha...</option>
                                     <option value="green">Baixa</option>
@@ -196,13 +214,13 @@ const Tarefas = () => {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="dataConclusao" className="input-group-text">Data de Conclusão:</label>
-                            <input className="form-date" type="date" name="dataConclusao" id="dataConclusao" onChange={(e) => setDtConclusion(e.target.value)} value={ attDate } /> 
+                            <input className="form-date" type="date" name="dataConclusao" id="dataConclusao" onChange={(e) => setDtConclusion(e.target.value)} value={ dtConclusion } /> 
                             {/* Converte para o formato yyyy-MM-dd */}
                         </div>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={() => setModalUpdate(false)} data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" className="btn btn-primary" >Modificar</button>
+                        <button type="button" className="btn btn-primary" onClick={ () => handleSubmitUpdate(dataAtt?.id) } >Modificar</button>
                     </div>
                     </div>
                 </div>
@@ -235,7 +253,7 @@ const Tarefas = () => {
                                 <div className="col-4 text-end p-3">
                                     <p>Criação: { todo.dtCreated }</p>
                                     <p>Conclusão: { todo.fDtConclusion }</p>
-                                    <button type='button' className="btn btn-outline-light m-1" onClick={() => handleUpdate(todo)}>Ver Mais</button>
+                                    <button type='button' className="btn btn-outline-light m-1" onClick={() => handleUpdate(todo)}>Modificar</button>
                                     <button onClick={ () => handleDelete(todo) } type='button' className="btn btn-outline-info m-1">Concluir Tarefa</button>
                                 </div>
                             </div>
